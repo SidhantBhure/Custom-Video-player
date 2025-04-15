@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Custom Video Player</title>
+  <style>
+    body {
+      background: #222;
+      color: #fff;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .player {
+      max-width: 700px;
+      width: 100%;
+      position: relative;
+    }
+    video {
+      width: 100%;
+      border-radius: 8px;
+    }
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0,0,0,0.7);
+      padding: 10px;
+      border-radius: 0 0 8px 8px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+    }
+    .controls button, .controls input {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .controls input[type="range"] {
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div class="player">
+    <video id="video" src="https://www.w3schools.com/html/mov_bbb.mp4"></video>
+    <div class="controls">
+      <button id="playPause">Play</button>
+      <input type="range" id="volume" min="0" max="1" step="0.1" value="1">
+      <button id="fullscreen">Fullscreen</button>
+    </div>
+  </div>
+
+  <script>
+    const video = document.getElementById('video');
+    const playPause = document.getElementById('playPause');
+    const volume = document.getElementById('volume');
+    const fullscreen = document.getElementById('fullscreen');
+
+    playPause.addEventListener('click', () => {
+      if (video.paused) {
+        video.play();
+        playPause.textContent = 'Pause';
+      } else {
+        video.pause();
+        playPause.textContent = 'Play';
+      }
+    });
+
+    volume.addEventListener('input', () => {
+      video.volume = volume.value;
+    });
+
+    fullscreen.addEventListener('click', () => {
+      if (video.requestFullscreen) {
+        video.requestFullscreen();
+      } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen();
+      } else if (video.msRequestFullscreen) {
+        video.msRequestFullscreen();
+      }
+    });
+  </script>
+</body>
+</html>
